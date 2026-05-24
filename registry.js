@@ -35,7 +35,10 @@ function renderRegistry() {
 
     const label = document.createElement('div');
     label.className = 'registry-label';
-    label.textContent = `Drop set #${registry.length - index} (${entry.startValue} drops)`;
+    const poppedCount = Number(entry.poppedCount) || 0;
+    const dropNumber = poppedCount > 0 ? poppedCount : 'Unknown';
+    const remainingAfterPop = Number.isFinite(entry.remainingAfterPop) ? entry.remainingAfterPop : '?';
+    label.textContent = `Pop #${dropNumber} of ${entry.startValue} (${remainingAfterPop} remaining)`;
 
     const dateWrap = document.createElement('label');
     dateWrap.className = 'registry-date-wrap';

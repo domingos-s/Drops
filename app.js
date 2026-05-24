@@ -36,8 +36,11 @@ function getRegistry() {
 function addRegistryEntry() {
   const today = new Date().toISOString().slice(0, 10);
   const registry = getRegistry();
+  const poppedCount = startValue - remaining;
   registry.unshift({
     startValue,
+    poppedCount,
+    remainingAfterPop: remaining,
     poppedDate: today,
     completedAt: Date.now()
   });
@@ -85,7 +88,7 @@ function removeDrop(node) {
   remaining -= 1;
   renderCounter();
 
-  if (remaining === 0) addRegistryEntry();
+  addRegistryEntry();
 }
 
 startBtn.addEventListener('click', () => startGame());
