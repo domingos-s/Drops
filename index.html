@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Drop</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="brand-row">
+        <div class="logo-drop"></div>
+        <h1>Drop</h1>
+      </div>
+      <p>Start at a number. Tap drops to make them disappear one by one.</p>
+    </section>
+
+    <section class="setup-card" id="setupCard">
+      <label for="startNumber">Starting number</label>
+      <div class="input-row">
+        <input id="startNumber" type="number" inputmode="numeric" min="1" max="250" value="20" />
+        <button id="startBtn">Start</button>
+      </div>
+      <p class="hint">Use 1–250 drops for best performance.</p>
+    </section>
+
+    <section class="counter-card hidden" id="counterCard">
+      <div class="counter-label">Remaining</div>
+      <div class="counter" id="counter">0</div>
+      <div class="progress-wrap" aria-hidden="true">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div class="actions">
+        <button id="resetBtn" class="secondary">Reset</button>
+        <button id="newBtn" class="secondary">New Count</button>
+      </div>
+    </section>
+
+    <section class="drop-board" id="dropBoard" aria-live="polite"></section>
+  </main>
+
+  <template id="dropTemplate">
+    <button class="drop" aria-label="Remove one drop">
+      <span class="shine"></span>
+    </button>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
