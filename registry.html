@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Drop Registry</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <nav class="top-menu" aria-label="Main menu">
+      <a href="index.html">Game</a>
+      <a href="registry.html" aria-current="page">Registry</a>
+    </nav>
+
+    <section class="hero">
+      <div class="brand-row">
+        <div class="logo-drop"></div>
+        <h1>Registry</h1>
+      </div>
+      <p>Track each completed drop count and edit the date it was popped.</p>
+    </section>
+
+    <section class="setup-card registry-card">
+      <div class="registry-header-row">
+        <h2>Completed Drops</h2>
+        <button id="clearRegistryBtn" class="secondary" type="button">Clear All</button>
+      </div>
+      <p class="hint">Dates are stored locally on this device.</p>
+      <div id="registryEmpty" class="registry-empty hidden">No completed drop sets yet.</div>
+      <div id="registryList" class="registry-list"></div>
+    </section>
+  </main>
+
+  <script src="registry.js"></script>
+</body>
+</html>

@@ -20,6 +20,30 @@ function clampStart(value) {
   return Math.min(250, Math.max(1, parsed));
 }
 
+
+function getRegistry() {
+  const raw = localStorage.getItem('drop.registry');
+  if (!raw) return [];
+
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function addRegistryEntry() {
+  const today = new Date().toISOString().slice(0, 10);
+  const registry = getRegistry();
+  registry.unshift({
+    startValue,
+    poppedDate: today,
+    completedAt: Date.now()
+  });
+  localStorage.setItem('drop.registry', JSON.stringify(registry));
+}
+
 function saveState() {
   localStorage.setItem('drop.startValue', String(startValue));
   localStorage.setItem('drop.remaining', String(remaining));
@@ -60,6 +84,8 @@ function removeDrop(node) {
   node.classList.add('removed');
   remaining -= 1;
   renderCounter();
+
+  if (remaining === 0) addRegistryEntry();
 }
 
 startBtn.addEventListener('click', () => startGame());
