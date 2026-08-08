@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Drop Calendar</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <nav class="top-menu" aria-label="Main menu">
+      <a href="index.html">Game</a>
+      <a href="registry.html">Registry</a>
+      <a href="calendar.html" aria-current="page">Calendar</a>
+      <button id="updateAppBtn" class="nav-update" type="button">Update App</button>
+    </nav>
+    <div id="updateStatus" class="update-status" role="status" aria-live="polite"></div>
+
+    <section class="hero">
+      <div class="brand-row">
+        <div class="logo-drop"></div>
+        <h1>Calendar</h1>
+      </div>
+      <p>See how many drops you logged each day.</p>
+    </section>
+
+    <section class="setup-card calendar-card">
+      <div class="calendar-header">
+        <button id="prevMonthBtn" class="secondary calendar-nav" type="button" aria-label="Previous month">‹</button>
+        <h2 id="calendarMonth"></h2>
+        <button id="nextMonthBtn" class="secondary calendar-nav" type="button" aria-label="Next month">›</button>
+      </div>
+      <div class="calendar-weekdays" aria-hidden="true">
+        <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+      </div>
+      <div id="calendarGrid" class="calendar-grid"></div>
+      <p class="hint calendar-hint">The blue badge is the number of drops recorded on that date.</p>
+    </section>
+  </main>
+
+  <script src="calendar.js"></script>
+  <script src="update.js"></script>
+</body>
+</html>
