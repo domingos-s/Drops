@@ -2,6 +2,8 @@ const calendarGrid = document.getElementById('calendarGrid');
 const calendarMonth = document.getElementById('calendarMonth');
 const prevMonthBtn = document.getElementById('prevMonthBtn');
 const nextMonthBtn = document.getElementById('nextMonthBtn');
+const totalDrops = document.getElementById('totalDrops');
+const daysLogged = document.getElementById('daysLogged');
 
 const now = new Date();
 let viewYear = now.getFullYear();
@@ -10,7 +12,6 @@ let viewMonth = now.getMonth();
 function getRegistry() {
   const raw = localStorage.getItem('drop.registry');
   if (!raw) return [];
-
   try {
     const parsed = JSON.parse(raw);
     return Array.isArray(parsed) ? parsed : [];
@@ -36,12 +37,12 @@ function renderCalendar() {
   const firstDay = new Date(viewYear, viewMonth, 1).getDay();
   const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
   const todayKey = dateKey(now.getFullYear(), now.getMonth(), now.getDate());
+  const monthPrefix = `${viewYear}-${String(viewMonth + 1).padStart(2, '0')}-`;
+  const monthEntries = Object.entries(counts).filter(([key]) => key.startsWith(monthPrefix));
 
-  calendarMonth.textContent = new Intl.DateTimeFormat(undefined, {
-    month: 'long',
-    year: 'numeric'
-  }).format(new Date(viewYear, viewMonth, 1));
-
+  totalDrops.textContent = monthEntries.reduce((sum, [, count]) => sum + count, 0);
+  daysLogged.textContent = monthEntries.length;
+  calendarMonth.textContent = new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(new Date(viewYear, viewMonth, 1));
   calendarGrid.innerHTML = '';
 
   for (let i = 0; i < firstDay; i += 1) {
@@ -69,26 +70,18 @@ function renderCalendar() {
       badge.setAttribute('aria-label', `${count} drop${count === 1 ? '' : 's'}`);
       cell.appendChild(badge);
     }
-
     calendarGrid.appendChild(cell);
   }
 }
 
 prevMonthBtn.addEventListener('click', () => {
   viewMonth -= 1;
-  if (viewMonth < 0) {
-    viewMonth = 11;
-    viewYear -= 1;
-  }
+  if (viewMonth < 0) { viewMonth = 11; viewYear -= 1; }
   renderCalendar();
 });
-
 nextMonthBtn.addEventListener('click', () => {
   viewMonth += 1;
-  if (viewMonth > 11) {
-    viewMonth = 0;
-    viewYear += 1;
-  }
+  if (viewMonth > 11) { viewMonth = 0; viewYear += 1; }
   renderCalendar();
 });
 
