@@ -14,8 +14,10 @@ async function updateApp() {
       await Promise.all(registrations.map((registration) => registration.unregister()));
     }
 
-    const cacheNames = await caches.keys();
-    await Promise.all(cacheNames.map((name) => caches.delete(name)));
+    if ('caches' in window) {
+      const cacheNames = await caches.keys();
+      await Promise.all(cacheNames.map((name) => caches.delete(name)));
+    }
 
     if (updateStatus) updateStatus.textContent = 'Updated. Reloading…';
 
@@ -31,3 +33,9 @@ async function updateApp() {
 }
 
 if (updateAppBtn) updateAppBtn.addEventListener('click', updateApp);
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js');
+  });
+}
